@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import './UserInput/userInput.css';
+import UserInput from './UserInput/userInput';
+import UserOutput from './UserOutput/userOutput';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+        word1: "look",
+      };
+  }
+
+  randomWord = () => {
+    this.setState({
+      word1: "tree"
+    });
+  }
+
+  changeWord = (event) => {
+    this.setState({
+      word1: event.target.value
+    });
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <h1>Welcome to Sight Words Worksheets!</h1>
+        <p>This is a small project I created to help preschool teachers make custom worksheets for their students.</p>
+        <p>The worksheet this page creates is the Trace, Stamp, Write worksheet. Simply enter 4 words on the left and watch the worksheet be generated on the right.</p>
+        <button onClick={this.randomWord}>Click here to generate a random word</button>
+        <div className="clearDiv"></div>
+        <div className="half">
+          <UserInput changeWord={this.changeWord} word={this.state.word1}/>
+        </div>
+        <div className="half">
+          <UserOutput word={this.state.word1}/>
+        </div>
+      </div>
+    );
+  }
+  
 }
 
 export default App;
